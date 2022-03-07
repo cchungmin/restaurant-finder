@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# Restaurant Finder
+
+This is developed for the employees in Cogent Labs, an AI company in Tokyo, Japan, to help them to find restaurants quickly and efficiently. This uses was React.js with TypeScript and Redux, and MUI for styling.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Folder structure
 
-In the project directory, you can run:
+The folder is structured with the following diagram:
 
-### `yarn start`
+```
+.
+|-- src
+|   |-- components
+|   |-- hooks
+|   |-- store
+|   |-- tests
+|   `-- utils
+|-- package.json
+|-- README.md
+|-- tsconfig.json
+`-- yarn.lock
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Development
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+One time only: install `yarn`.
 
-### `yarn test`
+```bash
+# On Mac with Homebrew (https://brew.sh/).
+brew install yarn
+# With npm package manager.
+npm install --global yarn
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clone the repo and install the dependencies:
 
-### `yarn build`
+```bash
+git clone https://github.com/cchungmin/restaurant-finder.git
+cd restaurant-finder
+yarn install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Start development server by typing:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+yarn start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Run tests:
 
-### `yarn eject`
+```
+yarn test
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Build the package:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+yarn build
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+In the root of the project, set up an `.env` file
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+REACT_APP_FOURSQUARE_API=https://api.foursquare.com/v2
+REACT_APP_FOURSQUARE_API_CLIENT_ID=YOUR_API_CLIENT_ID
+REACT_APP_FOURSQUARE_API_CLIENT_SECRET=YOUR_API_CLIENT_SECRET
+```
 
-## Learn More
+## Trade-offs & technical choices
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- API server and cache setting. The API requests are fired directly to FourSquare now, but it's better to have a lightweight server to transfer the requests.
+- Better UI impletmentation with theme. The UI is based on basic MUI theme.
+- Error handling for the inputs.
+- React testing library for quick setup since search field is the only input.
+- Icons for better understanding of restaurants.
+- TypeScript for type checks but some types are not well handled for now.
