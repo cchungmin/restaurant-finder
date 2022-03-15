@@ -18,11 +18,11 @@ export const Results = () => {
         <Grid container spacing={2}>
           {venues.map((item: any) => (
             <SingleResult
-              key={item.id}
-              id={item.id}
+              key={item.fsq_id}
+              id={item.fsq_id}
               name={item.name}
               mainCategoryName={item.categories[0].name}
-              count={item.stats.checkinsCount}
+              count={(item.stats && item.stats.checkinsCount) || 0}
             />
           ))}
         </Grid>

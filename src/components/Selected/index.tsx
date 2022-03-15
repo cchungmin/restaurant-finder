@@ -20,10 +20,12 @@ export const Selected = () => {
   /* @ts-ignore */
   const { pickedVenue, pickedVenueMapUrl } = useSelector((state) => state);
   const navigate = useNavigate();
-  const getRestaurantDetail = useGetRestaurantDetail({ id: pickedVenue.id });
+  const getRestaurantDetail = useGetRestaurantDetail({
+    id: pickedVenue.fsq_id,
+  });
 
   const onClick = useCallback(() => {
-    navigate(`/detail/${pickedVenue.id}`);
+    navigate(`/detail/${pickedVenue.fsq_id}`);
   }, [navigate, pickedVenue]);
 
   useEffect(() => {
@@ -72,7 +74,9 @@ export const Selected = () => {
             </Grid>
             <CardActions>
               <CtaContainer
-                phone={pickedVenue.contact.phone}
+                phone={
+                  (pickedVenue.contact && pickedVenue.contact.phone) || null
+                }
                 mapUrl={`${urlConfig.mapUrl}${pickedVenueMapUrl}`}
               />
             </CardActions>
