@@ -4,14 +4,18 @@ import {
   createAsyncThunk,
   createAction,
 } from "@reduxjs/toolkit";
-import { searchRestaurants, getRestaurantDetail } from "../utils";
+import {
+  searchRestaurants,
+  getRestaurantDetail,
+  getRestaurantPhotos,
+} from "../utils";
 
 export const fetchVenues = createAsyncThunk(
   "venues/fetchVenues",
   async ({ query }: { query?: string }) => {
     const data = await searchRestaurants({ query });
     /* @ts-ignore */
-    return data.response.venues;
+    return data.results;
   }
 );
 
@@ -21,7 +25,17 @@ export const fetchRestaurantDetail = createAsyncThunk(
     /* @ts-ignore */
     const data = await getRestaurantDetail({ id });
     /* @ts-ignore */
-    return data.response.venue;
+    return { ...data };
+  }
+);
+
+export const fetchRestaurantPhotos = createAsyncThunk(
+  "venues/fetchRestaurantPhotos",
+  async ({ id }: { id: string }) => {
+    /* @ts-ignore */
+    const data = await getRestaurantPhotos({ id });
+    /* @ts-ignore */
+    return [...data] as never[];
   }
 );
 
@@ -35,6 +49,7 @@ const venueSlice = createSlice({
     venues: [],
     pickedVenue: {},
     pickedVenueMapUrl: "",
+    pickedVenuePhotos: [],
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -45,7 +60,7 @@ const venueSlice = createSlice({
 
       if (state.pickedVenue) {
         /* @ts-ignore */
-        state.pickedVenueMapUrl = `${state.pickedVenue.location.lat},${state.pickedVenue.location.lng}`;
+        state.pickedVenueMapUrl = `${state.pickedVenue.geocodes.main.latitude},${state.pickedVenue.geocodes.main.longitude}`;
       } else {
         state.pickedVenue = { name: "Sorry, no result..." };
         state.pickedVenueMapUrl = "";
@@ -62,6 +77,10 @@ const venueSlice = createSlice({
 
     builder.addCase(actionResetPickedVenue.type, (state, action) => {
       state.pickedVenue = {};
+    });
+
+    builder.addCase(fetchRestaurantPhotos.fulfilled, (state, action) => {
+      state.pickedVenuePhotos = action.payload;
     });
   },
 });

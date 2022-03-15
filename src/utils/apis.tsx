@@ -29,16 +29,20 @@ export const urlConfig = {
 
 export const searchRestaurants = async ({ query }: { query?: string }) => {
   const newParams = { ...params, query };
-  const urlString =
-    `${urlConfig.apiUrl}/venues/search?` +
-    `${QueryString.stringify(newParams)}&${QueryString.stringify(CREDENTIALS)}`;
+  const urlString = `${urlConfig.apiUrl}/places/search?${QueryString.stringify(
+    newParams
+  )}`;
   return await originalFetch(urlString);
 };
 
 export const getRestaurantDetail = async ({ id }: Venue) => {
   if (!id) return;
-  const urlString =
-    `${urlConfig.apiUrl}/venues/` +
-    `${id}?${QueryString.stringify(CREDENTIALS)}`;
+  const urlString = `${urlConfig.apiUrl}/places/${id}`;
+  return await originalFetch(urlString);
+};
+
+export const getRestaurantPhotos = async ({ id }: Venue) => {
+  if (!id) return;
+  const urlString = `${urlConfig.apiUrl}/places/${id}/photos`;
   return await originalFetch(urlString);
 };

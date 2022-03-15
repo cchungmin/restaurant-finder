@@ -3,7 +3,7 @@ import { Button, Box } from "@mui/material";
 import { PhoneCta } from "../PhoneCta";
 
 type CtaProps = {
-  phone: number;
+  phone?: number;
   mapUrl?: string;
 };
 

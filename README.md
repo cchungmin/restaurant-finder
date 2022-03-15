@@ -62,9 +62,8 @@ yarn build
 In the root of the project, set up an `.env` file
 
 ```
-REACT_APP_FOURSQUARE_API=https://api.foursquare.com/v2
-REACT_APP_FOURSQUARE_API_CLIENT_ID=YOUR_API_CLIENT_ID
-REACT_APP_FOURSQUARE_API_CLIENT_SECRET=YOUR_API_CLIENT_SECRET
+REACT_APP_FOURSQUARE_API=https://api.foursquare.com/v3
+REACT_APP_FOURSQUARE_API_KEY=YOUR_API_KEY
 ```
 
 ## Trade-offs & technical choices
